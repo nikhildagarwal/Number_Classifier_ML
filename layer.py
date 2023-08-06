@@ -5,7 +5,7 @@ import function
 class Layer:
     """
     Layer Object for neural network. Takes array of inputs or multiple array of inputs.
-    This takes the form of a numpy matrix
+    This takes the form of a numpy matrix.
     """
 
     def __init__(self, input_count, output_count):
