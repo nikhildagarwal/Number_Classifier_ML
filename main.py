@@ -2,7 +2,7 @@ import layer
 from data import get_mnist
 import numpy as np
 
-print("Running...")
+print("Running...\n\n")
 images, labels = get_mnist()
 
 """
@@ -19,7 +19,8 @@ Prints the overall accuracy of our network after each iteration
 """
 for i in range(3):
     number_of_correct = 0
-    total_number = 60000
+    total_number = 0
+    counter = 0
     for img, label in zip(images, labels):
 
         """
@@ -33,6 +34,10 @@ for i in range(3):
         target_max = np.argmax(label)
         if pred_max == target_max:
             number_of_correct += 1
+        total_number += 1
+        if counter % 100 == 0:
+            print("running accuracy: " + str((number_of_correct / total_number) * 100) + "%")
+        counter += 1
 
         """
         Back Propagation to adjust weights
@@ -41,10 +46,8 @@ for i in range(3):
         l2.backward_next(l3.output, l3.weight_matrix)
         l1.backward_next(l2.output, l2.weight_matrix)
 
-    print("loop done")
-    print(number_of_correct / total_number)
-    print("final")
+    print("FINAL ACCURACY OF ITERATION "+str(i)+": "+str((number_of_correct/total_number) * 100) + "%")
 
-print("Finished...")
+print("\n\nFinished...")
 
 
