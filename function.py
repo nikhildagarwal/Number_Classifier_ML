@@ -37,7 +37,7 @@ def mean_squared_error(outputs, target):
     :return:
     """
     if len(outputs) != len(target):
-        raise IndexError("arrays must be the same length")
+        raise IndexError("arrays must be the same length!")
     coeff = 1 / len(outputs)
     outSum = 0
     for fi, yi in zip(target, outputs):
