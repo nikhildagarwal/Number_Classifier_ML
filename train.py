@@ -1,11 +1,11 @@
 import layer
-from data import get_mnist
+import data
 import numpy as np
 import modelParser as mp
 
 filepath = "./model.txt"
 print("Running...\n\n")
-images, labels = get_mnist()
+train_images, train_labels = data.get_training_data()
 
 parsed_file = mp.Parser(filepath, 4)
 
@@ -26,7 +26,7 @@ for i in range(3):
     number_of_correct = 0
     total_number = 0
     counter = 0
-    for img, label in zip(images, labels):
+    for img, label in zip(train_images, train_labels):
 
         """
         Forward propagation
@@ -49,7 +49,7 @@ for i in range(3):
         Back Propagation to adjust weights
         """
         l4.backward_start(label)
-        l3.backward_next(l4.output,l4.weight_matrix)
+        l3.backward_next(l4.output, l4.weight_matrix)
         l2.backward_next(l3.output, l3.weight_matrix)
         l1.backward_next(l2.output, l2.weight_matrix)
 

@@ -19,10 +19,7 @@ class Layer:
         self.output = None
         self.weight_matrix = np.random.uniform(-0.5, 0.5, (output_count, input_count))
         if matrix is not None:
-            print("loaded weights from model")
             self.weight_matrix = matrix
-        else:
-            print("randomized weights in layer")
 
     def forward(self, input_matrix):
         """
