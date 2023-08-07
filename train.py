@@ -7,15 +7,14 @@ filepath = "./model.txt"
 print("Running...\n\n")
 train_images, train_labels = data.get_training_data()
 
-parsed_file = mp.Parser(filepath, 4)
+parsed_file = mp.Parser(filepath, 3)
 
 """
 Initialize Neural layers.
 """
-l1 = layer.Layer(784, 392, parsed_file.data[0])
-l2 = layer.Layer(392, 196, parsed_file.data[1])
-l3 = layer.Layer(196, 98, parsed_file.data[2])
-l4 = layer.Layer(98, 10, parsed_file.data[3])
+l1 = layer.Layer(784, 784, parsed_file.data[0])
+l2 = layer.Layer(784, 10, parsed_file.data[1])
+l3 = layer.Layer(10, 10, parsed_file.data[2])
 
 """
 Loops 3 times over the entire dataset of 60000 pictures.
@@ -33,9 +32,8 @@ for i in range(3):
         l1.forward(img)
         l2.forward(l1.output)
         l3.forward(l2.output)
-        l4.forward(l3.output)
 
-        pred_max = np.argmax(l4.output)
+        pred_max = np.argmax(l3.output)
         target_max = np.argmax(label)
         if pred_max == target_max:
             number_of_correct += 1
@@ -47,8 +45,7 @@ for i in range(3):
         """
         Back Propagation to adjust weights
         """
-        l4.backward_start(label)
-        l3.backward_next(l4.output, l4.weight_matrix)
+        l3.backward_start(label)
         l2.backward_next(l3.output, l3.weight_matrix)
         l1.backward_next(l2.output, l2.weight_matrix)
 
@@ -63,9 +60,6 @@ for n in l2.weight_matrix:
     content_to_write += str(n)
 content_to_write += "%"
 for n in l3.weight_matrix:
-    content_to_write += str(n)
-content_to_write += "%"
-for n in l4.weight_matrix:
     content_to_write += str(n)
 with open(filepath, file_mode) as file:
     file.write(content_to_write)

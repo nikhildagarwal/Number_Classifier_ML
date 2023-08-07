@@ -7,15 +7,14 @@ filepath = "./model.txt"
 print("Running...\n\n")
 test_images, test_labels = data.get_test_data()
 
-parsed_file = mp.Parser(filepath, 4)
+parsed_file = mp.Parser(filepath, 3)
 
 """
 Initialize Neural layers.
 """
-l1 = layer.Layer(784, 392, parsed_file.data[0])
-l2 = layer.Layer(392, 196, parsed_file.data[1])
-l3 = layer.Layer(196, 98, parsed_file.data[2])
-l4 = layer.Layer(98, 10, parsed_file.data[3])
+l1 = layer.Layer(784, 784, parsed_file.data[0])
+l2 = layer.Layer(784, 10, parsed_file.data[1])
+l3 = layer.Layer(10, 10, parsed_file.data[2])
 
 """
 Loops 3 times over the entire dataset of 60000 pictures.
@@ -32,9 +31,8 @@ for img, label in zip(test_images, test_labels):
     l1.forward(img)
     l2.forward(l1.output)
     l3.forward(l2.output)
-    l4.forward(l3.output)
 
-    pred_max = np.argmax(l4.output)
+    pred_max = np.argmax(l3.output)
     target_max = np.argmax(label)
     if pred_max == target_max:
         number_of_correct += 1
