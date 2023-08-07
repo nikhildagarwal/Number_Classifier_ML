@@ -61,6 +61,6 @@ class Layer:
         front = np.asarray(front)
         delta = front * temp
         self.output = delta
-        self.weight_matrix -= 0.005 * np.dot(delta.T, self.input)
+        self.weight_matrix -= 0.01 * np.dot(delta.T, self.input)
 
 
