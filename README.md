@@ -2,7 +2,7 @@
 Hi! Welcome to my ML Number Classifier Project. Enjoy!!
 
 I have built a neural network from scratch in python making use of numpy and Object-Oriented-Programming.
-This network takes a 28x28 pixel image of a handwritten digit and correctly classifies what digit that is.
+This network takes a 28x28 pixel image of a handwritten digit and correctly classifies the digit as 0, 1, 2, 3, 4, 5, 6, 7, 8, or 9
 
 This Project is written in Python and requires the use of numpy, pillow, math, and pathlib.
 You can install these via an IDE or with "pip install" in the command line.
